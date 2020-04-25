@@ -1,12 +1,10 @@
 let a = 0;
 let heart = [];
 
-let bpm = 150;
+let bpm = 60;
 
-let speed = 1 / bpm;
 let minsize = 1.5;
 let size = 1;
-let period = 6;
 
 let aniversary = new Date(2018, 02, 20)
 let today = new Date();
@@ -79,9 +77,9 @@ function draw() {
 
     // noStroke();
 
-    let x = (frameCount / (bpm / period)) % period;
-
-    size = (cos(PI * x) - sin(x * TWO_PI) - sin(x)) * 0.2 + minsize
+    let x = (frameCount)*(2/bpm);
+    print(x)
+    size = (cos(PI * (x-0.223)) - sin((x-0.223) * TWO_PI) - sin(x-0.223)) * 0.2 + minsize
     a = 0
 
     let rw = windowWidth * 0.9;
