@@ -5,7 +5,7 @@ let bpm = 60;
 
 let minsize = 1.5;
 let size = 1;
-
+let saved = [];
 let aniversary = new Date(2018, 02, 20)
 let today = new Date();
 function setup() {
@@ -15,7 +15,7 @@ function setup() {
     // const x = r * 16 * pow(sin(a), 3);
     // const y = -r * (13 * cos(a) - 5 * cos(2 * a) - 2 * cos(3 * a) - cos(4 * a));
     // heart.push(createVector(x, y))
-    frameRate(bpm)
+    frameRate(60)
     textFont('Fredoka One')
 }
 
@@ -27,21 +27,26 @@ function draw() {
     let minutes = floor((dif - days * 86400 - years * 31540000 - hours * 3600) / 60);
     let seconds = floor((dif - days * 86400 - years * 31540000 - hours * 3600 - minutes * 60))
 
-    background(0)
     fill('#FE8E86')
     noStroke()
     rect(0, 0, width * 2, height * 2)
     translate(width / 2, height / 4)
 
-    heart = [];
-    while (a < TWO_PI) {
 
+    let x = round(((frameCount)*(2/bpm)) % 2, 2);
+    size = (cos(PI * (x-0.2021)) - sin((x- 0.2021) * TWO_PI)) * 0.2 + minsize
+    a = 0
+
+    heart = [];
+
+    while (a < TWO_PI) {
         const r = height / (100 / size)
-        const x = r * 16 * pow(sin(a), 3)
+        const n = r * 16 * pow(sin(a), 3)
         const y = -r * (13 * cos(a) - 5 * cos(2 * a) - 2 * cos(3 * a) - cos(4 * a))
-        heart.push(createVector(x, y))
+        heart.push(createVector(n, y))
         a += 0.04
     }
+
     strokeJoin(ROUND)
     strokeWeight(3)
     stroke("#C51104")
@@ -77,11 +82,8 @@ function draw() {
 
     // noStroke();
 
-    let x = (frameCount)*(2/bpm);
-    print(x)
-    size = (cos(PI * (x-0.223)) - sin((x-0.223) * TWO_PI) - sin(x-0.223)) * 0.2 + minsize
-    a = 0
 
+    strokeWeight(12*min(height/1000, width/1080))
     let rw = windowWidth * 0.9;
     let rh = windowHeight * 0.3;
     rectMode(CENTER)
