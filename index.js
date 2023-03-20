@@ -11,8 +11,21 @@ let bpm = 60;
 let minsize = 1.5;
 let size = 1;
 let saved = [];
-const anniversary = dayjs.tz('2018-03-20', 'America/Toronto').startOf('day');
-let today = dayjs.tz(dayjs('2023-03-19'), 'America/Toronto');
+
+
+const params = new Proxy(new URLSearchParams(window.location.search), {
+  get: (searchParams, prop) => searchParams.get(prop),
+});
+// Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
+let annDate = params.date ?? '2018-03-20'; // "some_value"
+
+
+const name1 = params.name1 ?? "Thomass";
+const name2 = params.name2 ?? "Sam";
+if((name1 && name2) && (name1 !== "Thomass" || name2 !== "Sam")) document.title = `${name1} + ${name2} Forever!`;
+
+const anniversary = dayjs.tz(annDate, 'America/Toronto').startOf('day');
+let today = dayjs.tz(dayjs(), 'America/Toronto');
 
 let fireworksActive = false;
 
