@@ -18,6 +18,16 @@ let fireworksActive = false;
 
 function fireworks(){
   const isAnniversaryToday = today.format("MM-DD") === anniversary.format("MM-DD");
+  if(!isAnniversaryToday && fireworksActive){
+    let particles = tsParticles.domItem(0);
+
+    // play will start the animations, if the move is not enabled it won't enable it, it just updates the frame
+    particles.stop();
+     particles = tsParticles.domItem(1);
+
+    // play will start the animations, if the move is not enabled it won't enable it, it just updates the frame
+    particles.stop();
+  }
 if (isAnniversaryToday && !fireworksActive) {
   fireworksActive = true;
   tsParticles.load("tsparticles", {
@@ -283,7 +293,7 @@ if (isAnniversaryToday && !fireworksActive) {
   });
   
 const particles = tsParticles.domItem(0);
-  console.log(particles)
+
 // play will start the animations, if the move is not enabled it won't enable it, it just updates the frame
 particles.play();
 }
@@ -430,8 +440,8 @@ function draw() {
     textAlign(CENTER, CENTER);
     text(num, x, y + (cr * 0.25) / 3);
   }
-  // today = dayjs.tz(dayjs(), 'America/Toronto');
-  today = today.add(1, 'hour')
+  today = dayjs.tz(dayjs(), 'America/Toronto');
+
   fireworks();
 }
 
